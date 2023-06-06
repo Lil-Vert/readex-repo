@@ -1,0 +1,13 @@
+{% load static %}  
+<div class="sidebar-box subs-wrap img" style="background-image: url({% static 'bookApp/images/bg_1.jpg' %});">
+    <div class="overlay"></div>
+    <h3 class="mb-4 sidebar-heading">Newsletter</h3>
+    <p class="mb-4">Subscribe to our Mailing List and Receive updates from the Blog!</p>
+<form method="post" action="{% url 'emailforms' %}" class="subscribe-form">
+    {% csrf_token %}
+<div class="form-group">
+<input type="email" name="emailer" required class="form-control" placeholder="Email Address">
+<input type="submit" value="Subscribe" class="mt-2 btn btn-white submit">
+</div>
+</form>
+</div>

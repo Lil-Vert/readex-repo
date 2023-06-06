@@ -1,0 +1,48 @@
+ <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container px-md-5">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-4">
+              <h2 class="ftco-heading-2">Category</h2>
+              <ul class="list-unstyled categories">
+                {% for tags in sidebar %}
+		            <li><a href="#">{{ tags.categories__title|capfirst }}<span>({{ tags.categories__title__count }})</span></a></li>
+		            {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+             <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Services Links</h2>
+              <ul class="list-unstyled categories">
+            		<li><a href="{% url 'home' %}">Promote</a></li>
+                <li><a href="{% url 'article' %}">Event</a></li>
+                <li><a href="{% url 'photo' %}">Gallery</a></li>
+                <li><a href="{% url 'about' %}">About US</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">{{author.address|title}}</span></li>
+	                <li><a><span class="icon icon-phone"></span><span class="text">(+234) {{author.tel}}</span></a></li>
+	                <li><a><span class="icon icon-envelope"></span><span class="text">{{author.user.email|capfirst}}</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          </div>
+        </div>
+      </div>
+    </footer>

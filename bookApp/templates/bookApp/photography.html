@@ -1,0 +1,70 @@
+{% extends 'bookapp/base.html' %}
+{% load static %} 
+{% block title %} Gallery {% endblock %} 
+  {% block content %}
+	<div id="colorlib-page">
+		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+		<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+			<h1 id="colorlib-logo"><a style="color: #17a3b8bb;" href="{% url 'home' %}">{{author.website_name|capfirst}}<span>.</span></a></h1>
+			<nav id="colorlib-main-menu" role="navigation">
+				<ul>
+					{% if user.is_authenticated %}
+				<li>
+					<div class="border">
+						{{user.username|capfirst|truncatechars:8}}<br>
+						<small class="icon-user"> <a href="{% url 'logout' %}"> sign out</a></small>
+				    </div>
+				</li>
+				{% else %}
+				<li class="border"><a href="{% url 'login' %}">sign in</a></li>
+				{% endif %}
+				<li><a href="{% url 'home' %}">Home</a></li>
+				<li><a href="{% url 'article' %}">Article</a></li>
+				<li><a href="{% url 'post' %}">Post</a></li>
+				<li class="colorlib-active"><a href="{% url 'photo' %}">Gallery</a></li>
+				<li><a href="{% url 'about' %}">About</a></li>
+				<li><a href="{% url 'contact' %}">Contact</a></li>
+			
+				</ul>
+			</nav>
+
+			<div style="color: #17a3b8bb;" class="colorlib-footer">
+				<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+				<ul>
+					<li><a href="#"><i class="icon-facebook"></i></a></li>
+					<li><a href="#"><i class="icon-twitter"></i></a></li>
+					<li><a href="#"><i class="icon-instagram"></i></a></li>
+					<li><a href="#"><i class="icon-linkedin"></i></a></li>
+				</ul>
+			</div>
+		</aside>
+		<div id="colorlib-main">
+			<section class="ftco-section-2">
+				<div class="photograhy">
+					<div class="row no-gutters">
+                        {% for photo in photos %}
+						<div class="col-md-3">
+							<a {% if user.is_authenticated %} href="{% url 'viewer' photo.pk %}" {% endif %} href="{% url 'blog-details' photo.pk %}"  class="photography-entry img d-flex justify-content-center align-items-center" style="background-image: url({{photo.picture.url}});">
+								<div class="overlay"></div>
+								<div class="text text-center">
+									<h3>{{photo.title|title|truncatechars:40}}</h3>
+									<span>{{photo.overview|safe|capfirst|truncatechars:60}}</span>
+								</div>
+							</a>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="m-5">
+					{% include 'bookApp/includes/pagination.html' %}
+				</div>
+			</section>
+			{% include 'bookApp/includes/footer.html' %}
+		</div>
+	</div>
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+{% endblock %}

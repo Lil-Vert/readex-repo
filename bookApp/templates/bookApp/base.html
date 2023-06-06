@@ -1,0 +1,37 @@
+{% load static %}  
+
+<!DOCTYPE html>
+<html>
+        <head>
+            <title>{% block title %}ReadexIQ.com{% endblock %}</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            {% include 'bookApp/includes/link.html' %}
+        </head>
+<body>
+
+    <!-- webpages block -->
+    {% block content %}
+    {% block stylesheet %}
+    {% endblock %}
+
+    {% endblock %}
+     
+    {% block javascript %}
+    <script>
+      $(document).ready(function(){
+           $("#show").onclick(function(){
+            $("#msg").show();        
+           });
+        })
+    </script>
+   {% endblock %}
+   
+    <!-- all js file here -->
+	{% include 'bookApp/includes/js.html' %}
+
+    <!-- footer block and file here -->
+    
+	
+</body>
+</html>

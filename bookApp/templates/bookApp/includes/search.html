@@ -1,0 +1,20 @@
+{% load static %}  
+		 <style>
+			.searchicon{
+  color: #adabab;
+  border-color: transparent;
+  background: transparent;
+}
+.searchicon:focus-visible{
+	border-color: transparent;
+	background: transparent;
+}
+		 </style>
+		 <div class="sidebar-box">
+	              <form method="get" action="{% url 'search' %}" class="search-form">
+	                <div class="form-group">
+	                  <input type="text" name="searchs" value="{{searcher}}" class="form-control" placeholder="Type a keyword and hit enter">
+					  <button class="icon icon-search searchicon" type="submit"></button>
+					</div>
+	              </form>
+	            </div>

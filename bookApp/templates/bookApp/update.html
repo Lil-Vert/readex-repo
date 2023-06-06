@@ -1,0 +1,56 @@
+{% extends 'bookapp/base.html' %}
+{% load static %}  
+  {% block content %}
+	<div id="colorlib-page">
+		<div>
+			<section class="ftco-section contact-section">
+	      <div class="container-fluid">
+	        <div class="row d-flex mb-5 contact-info">
+	          <div class="col-md-12 mb-4">
+	            <h2 class="h4 font-weight-bold">Contact Information</h2>
+	          </div>
+	          <div class="w-100"></div>
+	          <div class="col-md-3">
+	            <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+	          </div>
+	          <div class="col-md-3">
+	            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+	          </div>
+	          <div class="col-md-3">
+	            <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+	          </div>
+	          <div class="col-md-3">
+	            <p><span>Website</span> <a href="#">oursite. com</a></p>
+	          </div>
+	        </div>
+
+
+	        <div class="row block-9">
+	          <div class="col-md-12 order-md-last pr-md-5">
+	            <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+	              <div class="form-group">
+					{{form.media}}
+	                {{form}}<br>
+	              </div>
+	                <input type="submit" value="Save Updated" class="btn btn-primary py-3 px-5">
+	            </form>
+	          
+	          </div>
+
+	          <div class="col-md-6">
+	          	<div id="map"></div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+		{% include 'bookApp/includes/footer.html' %}
+		</div><!-- END COLORLIB-MAIN -->
+	</div><!-- END COLORLIB-PAGE -->
+     <script>
+        var simplemde = new SimpleMDE({element:document.getElementById('markdowns')});
+     </script>
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+{% endblock %}

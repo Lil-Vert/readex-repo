@@ -1,0 +1,120 @@
+{% extends 'bookapp/base.html' %}
+{% load humanize %}
+{% load static %}  
+  {% block content %}
+	<div id="colorlib-page">
+		<a class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+		 <!-- sidebar navition items -->
+		<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center text-blue">
+			<h1 id="colorlib-logo"><a  href="{% url 'home' %}" style="color: #17a3b8bb;">{{author.website_name|capfirst}}<span>.</span></a></h1>
+			<nav id="colorlib-main-menu" role="navigation">
+				<ul>
+				{% if user.is_authenticated %}
+				<li>
+					<div class="border">
+						{{user.username|capfirst|truncatechars:8}}<br>
+						<small class="icon-user"> <a href="{% url 'logout' %}"> sign out</a></small>
+				    </div>
+				</li>
+				{% else %}
+				  <li class="border"><a href="{% url 'login' %}">sign in</a></li>
+				{% endif %}
+				<li class="colorlib-active">
+					<a href="{% url 'home' %}">Home</a></li>
+					<li><a href="{% url 'article' %}">Article</a></li>
+					<li><a href="{% url 'post' %}">Post</a></li>
+					<li><a href="{% url 'photo' %}">Gallery</a></li>
+					<li><a href="{% url 'about' %}">About</a></li>
+					<li><a href="{% url 'contact' %}">Contact</a></li>
+				</ul>
+			</nav>
+			<div style="color: #17a3b8bb;" class="colorlib-footer">
+				<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+				<ul>
+					<li><a><i class="icon-facebook"></i></a></li>
+					<li><a><i class="icon-twitter"></i></a></li>
+					<li><a><i class="icon-instagram"></i></a></li>
+					<li><a><i class="icon-linkedin"></i></a></li>
+				</ul>
+			</div>
+		</aside>
+       <!--end sidebar navition items -->
+		<div id="colorlib-main"><br><br>
+			<!-- author -->
+			{% include 'bookApp/includes/author.html' %}
+			<!-- end author -->
+			<section class="ftco-section">
+    	<div class="container">
+    		<div class="row justify-content-center mb-5 pb-2">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+            <h2 class="mb-4">Articles</h2>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+          </div>
+        </div>
+			<!-- posts loop -->
+    		<div class="row">
+				{% for print in prints %}
+    			<div class="col-md-4">
+    				<div class="blog-entry ftco-animate">
+							<a class="img img-2 " style="background-image: url({{print.picture.url}});"></a>
+							<div class="text text-2 pt-2 mt-3">
+                              {% if request.user.is_staff %}
+								<span class="category mb-3 d-block">
+									<a class="btn btn-outline-success icon-upload" href="{% url 'create-post' %}"></a>
+									<a class="btn btn-outline-info icon-edit" href="{% url 'update-post' print.slug %}"></a>
+									<a class="btn btn-outline-danger icon-trash-o" href="{% url 'delete-post' print.slug %}"></a>
+								</span>
+                              {% endif %}
+	              <h3 class="mb-4"><a>{{print.title|title|truncatechars:47}}</a></h3>
+	              <p class="mb-4">{{print.overview|safe|capfirst|truncatechars:100}}</p>
+	              <div class="author mb-4 d-flex align-items-center">
+	            		<a class="img" style="background-image: url({{print.author.image.url}});"></a>
+						<div class="ml-3 info">
+	            			<span>Written by</span>
+	            			<h3><a>{{print.author.first_name}}</a>, <span>{{print.timestamp|naturaltime}}</span></h3>
+	            		</div>
+	            	</div>
+	              <div class="meta-wrap align-items-center">
+					<div class="half order-md-last">
+						<p class="meta">
+							<a {% if user.is_authenticated %} href="{% url 'like' print.pk %}" {% endif %}>
+							<span><i class="icon-heart-o"></i>{{ print.like }}</span>
+							   </a>
+							   <a>
+								<span><i class="icon-eye"></i>{{ print.viewer }}</span>
+							   </a>
+						</p>
+					</div>
+
+	              	<div class="half">
+							<div class="text text-2 pt-2 mt-3">
+		              	<p>
+							<a {% if user.is_authenticated %} href="{% url 'viewer' print.pk %}" {% endif %} href="{% url 'blog-details' print.pk %}" class="btn py-2">
+								Continue Reading <span class="ion-ios-arrow-forward"></span>
+							</a>
+					   </p>
+	              	</div>
+	              </div>
+	            </div>
+						</div>
+    			</div>
+			</div>
+				{% endfor %}
+    	</div>
+		<!-- end posts loop -->
+
+		   <!-- pagination -->
+		{% include 'bookApp/includes/pagination.html' %}
+		   <!-- end pagination -->
+    </section>
+           <!-- foooter -->
+	{% include 'bookApp/includes/footer.html' %}
+	      <!-- end foooter -->
+		</div>
+	</div>
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+ <!-- end loader -->
+{% endblock %}

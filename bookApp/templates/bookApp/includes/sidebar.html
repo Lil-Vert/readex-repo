@@ -1,0 +1,43 @@
+<div class="col-lg-4 sidebar ftco-animate">
+	{% include 'bookApp/includes/search.html' %}
+	<div class="sidebar-box ftco-animate">
+		<h3 class="sidebar-heading">Categories</h3>
+	  <ul class="categories">
+		{% for tags in sidebar %}
+		<li><a>{{ tags.categories__title|title }}<span>({{ tags.categories__title__count }})</span></a></li>
+		{% endfor %}
+	  </ul>
+	</div>
+
+	<div class="sidebar-box ftco-animate">
+	  <h3 class="sidebar-heading">Popular Articles</h3>
+        {% for prints in print %}
+		<div class="block-21 mb-4 d-flex">
+		<a {% if user.is_authenticated %} href="{% url 'viewer' prints.pk %}" {% endif %} href="{% url 'blog-details' prints.pk %}" class="blog-img mr-4" style="background-image: url({{prints.picture.url}});"></a>
+		<div class="text">
+		  <h3 class="heading"><a {% if user.is_authenticated %} href="{% url 'viewer' prints.pk %}" {% endif %} href="{% url 'blog-details' prints.pk %}">{{prints.title|title|truncatechars:40}}</a></h3>
+		  <div class="meta">
+			<div><a><span class="icon-calendar"></span> {{prints.timestamp|date:"M d, Y"}}</a></div>
+			<div><a><span class="icon-person"></span> {{prints.author.first_name|capfirst}} </a></div>
+		  </div>
+		</div>
+		</div>
+        {% endfor %}
+	</div>
+
+	<div class="sidebar-box ftco-animate">
+	  <h3 class="sidebar-heading">Tag Cloud</h3>
+	  <ul class="tagcloud">
+		{% for tag in sidetag %}
+		<a href="{% url 'cat' tag.slug %}" class="tag-cloud-link">{{ tag.title|title }}</a>
+		{% endfor %}
+	  </ul>
+	</div>
+
+	{% include 'bookApp/includes/subcribe.html' %}
+
+	<div class="sidebar-box ftco-animate">
+	  <h3 class="sidebar-heading">Advertisement</h3>
+	  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+	</div>
+  </div>

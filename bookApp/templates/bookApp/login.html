@@ -1,0 +1,61 @@
+{% extends 'bookapp/base.html' %}
+{% load static %}  
+  {% block content %}
+  {% block stylesheet %}
+   
+  <style>
+    body{background-color:#dee6ee;}
+    button,input[type=text], input[type='email'], input[type='password']{
+display: block;
+width: 100%;
+padding: 0.375rem 0.75rem;
+font-size: 1rem;
+line-height: 1.5;
+color: #495057;
+background-color: #fff;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+height: 52px;
+border-radius: 0.25rem;
+-webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+-o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+ul.errorlist{
+  color: #ff0000;
+}
+</style>
+{% endblock %} 
+
+<div class="container-fluid" >
+    <h1 class="text-center logo my-4">
+      <p class="text-primary">Welcome Back! {{user.username}}</p>
+    </h1>
+    <div class="row justify-content-center">
+      <div class="col-lg-4 col-md-6 col-sm-8">
+        <div class="card shadow">
+          <div class="card-body">
+            <h3 class="card-title">Login</h3>
+            <form method="post" novalidate>
+              {% csrf_token %}
+              {{form.as_p}}
+                <br>
+              <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+          </div>
+          <div class="card-footer text-muted text-center">
+            Don't have an account? <a href="{% url 'sign-up' %}">Sign up</a>
+          </div>
+        </div>
+        <div class="text-center py-2">
+          <small>
+            <a href="#" class="text-muted">Forgot your password?</a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{%endblock %}

@@ -1,0 +1,96 @@
+{% extends 'bookapp/base.html' %}
+{% load static %} 
+{% load widget_tweaks %}
+{% block content %}
+{% block stylesheet %}
+   
+  <style>
+    body{background-color:#dee6ee;}
+    button,input[type=text], input[type='email'], input[type='password']{
+display: block;
+width: 100%;
+padding: 0.375rem 0.75rem;
+font-size: 1rem;
+line-height: 1.5;
+color: #495057;
+background-color: #fff;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+height: 52px;
+border-radius: 0.25rem;
+-webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+-o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+ul.errorlist{
+  color: #ff0000;
+}
+small.form-text{
+  color: green;
+}
+</style>
+{% endblock %} 
+
+<div class="container-fluid" >
+    <h1 class="text-center logo my-4">
+      <p class="text-primary">Register</p>
+    </h1>
+    <div class="row justify-content-center">
+      <div class="col-lg-4 col-md-6 col-sm-8">
+        <div class="card shadow">
+          <div class="card-body">
+            <h3 class="card-title">Sign up</h3>
+            <form method="post" novalidate>
+              {% csrf_token %}
+            
+              {% for field in form %}
+                <div class="form-group">
+                  {{ field.label_tag }}
+            
+                  {% if form.is_bound %}
+                    {% if field.errors %}
+            
+                      {% render_field field class="form-control is-invalid" %}
+                      {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                          {{ error }}
+                        </div>
+                      {% endfor %}
+            
+                    {% else %}
+                      {% render_field field class="form-control is-valid" %}
+                    {% endif %}
+                  {% else %}
+                    {% render_field field class="form-control" %}
+                  {% endif %}
+            
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">
+                      {{ field.help_text }}
+                    </small>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            
+              <button type="submit" class="btn btn-primary">Signup</button>
+            </form>
+          </div>
+          <div class="card-footer text-muted text-center">
+            Have an account? <a href="{% url 'login' %}">Login</a>
+          </div>
+        </div>
+        <div class="text-center py-2">
+          <small>
+            <a href="#" class="text-muted">Forgot your password?</a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+{%endblock %}
